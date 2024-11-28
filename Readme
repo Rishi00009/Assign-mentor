@@ -1,0 +1,146 @@
+
+
+Features:
+    Create Mentors: Add new mentors to the system.
+    Create Students: Add new students to the system.
+    Assign Students to Mentors: Assign multiple students to a mentor.
+    Change Student's Mentor: Update a student's mentor assignment.
+    Fetch Assigned Students: Retrieve all students assigned to a specific mentor.
+    Unassigned Students: Get all students without mentors.
+
+Technologies Used:
+    Backend:
+        Node.js
+        Express.js
+        MongoDB (via Mongoose)
+        dotenv (for managing environment variables)
+        body-parser (to parse incoming request bodies)
+
+Interact with the API:
+  The following are the available API endpoints you can interact with via the front-end or through tools like Postman:
+
+    Create a Mentor: POST /mentors/create
+    Create a Student: POST /students/create
+    Assign Students to a Mentor: POST /mentors/assign
+    Change Student's Mentor: PATCH /students/change-mentor
+    Get Students Assigned to a Mentor: GET /mentors/{mentorId}/students
+    Get Unassigned Students: GET /students/unassigned.
+
+API Endpoints:
+1. Create Mentor
+
+    URL: POST /mentors/create
+
+    Body:
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+
+Response:
+
+    {
+      "_id": "mentor_id",
+      "name": "John Doe",
+      "email": "john.doe@example.com"
+    }
+
+2. Create Student
+
+    URL: POST /students/create
+
+    Body:
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com"
+}
+
+Response:
+
+    {
+      "_id": "student_id",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "mentor": null
+    }
+
+3. Assign Students to a Mentor
+
+    URL: POST /mentors/assign
+
+    Body:
+
+{
+  "mentorId": "mentor_id_here",
+  "studentIds": ["student_id_1", "student_id_2"]
+}
+
+Response:
+
+    [
+      {
+        "_id": "student_id_1",
+        "name": "Jane Smith",
+        "mentor": "mentor_id_here"
+      },
+      {
+        "_id": "student_id_2",
+        "name": "John Doe",
+        "mentor": "mentor_id_here"
+      }
+    ]
+
+4. Change Student's Mentor
+
+    URL: PATCH /students/change-mentor
+
+    Body:
+
+{
+  "studentId": "student_id_here",
+  "mentorId": "new_mentor_id_here"
+}
+
+Response:
+
+    {
+      "_id": "student_id_here",
+      "name": "Jane Smith",
+      "mentor": "new_mentor_id_here"
+    }
+
+5. Get Students Assigned to a Mentor
+
+    URL: GET /mentors/{mentorId}/students
+
+    Response:
+
+    [
+      {
+        "_id": "student_id_1",
+        "name": "Jane Smith",
+        "mentor": "mentor_id_here"
+      },
+      {
+        "_id": "student_id_2",
+        "name": "John Doe",
+        "mentor": "mentor_id_here"
+      }
+    ]
+
+6. Get Unassigned Students
+
+    URL: GET /students/unassigned
+
+    Response:
+
+[
+  {
+    "_id": "student_id_3",
+    "name": "Unassigned Student",
+    "mentor": null
+  }
+]
+
